@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pengumuman Kelulusan MI ANNUR'AIN</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://i.imgur.com/2r9T3ZB.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .overlay {
+      background-color: rgba(75, 0, 130, 0.6); /* ungu transparan */
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      color: white;
+      padding: 20px;
+      user-select: none;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 0 0 40px;
+      font-weight: 600;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+    }
+    input {
+      width: 320px;
+      max-width: 90%;
+      padding: 12px 15px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+    button {
+      background-color: #4B0082;
+      color: white;
+      font-size: 1.1rem;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #4B0082;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #6a22d6;
+      box-shadow: 0 0 18px #6a22d6;
+    }
+    .result {
+      margin-top: 25px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+      min-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>PENGUMUMAN KELULUSAN MI ANNUR'AIN</h1>
+    <h2>TAHUN AJARAN 2024/2025</h2>
+    <input type="text" id="searchInput" placeholder="Masukkan NISN atau Nama" autocomplete="off" />
+    <button onclick="checkGraduation()">Cek Kelulusan</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const students = [
+      { nisn: "0128001146", nama: "AKSA IZZAN FISABILHAQ" },
+      { nisn: "3136911548", nama: "ALFIN RAIS MA'RUFI" },
+      { nisn: "3130511810", nama: "AVRILIA PUTRI ANDINI" },
+      { nisn: "3136078815", nama: "BASTIAN ALRAZWA R" },
+      { nisn: "0132183383", nama: "BYAN DAFFA PRATAMA PIINGA" },
+      { nisn: "0134724728", nama: "CHERYL ALMAIRA" },
+      { nisn: "0126553019", nama: "DHITO SYAFAS MARIADI" },
+      { nisn: "3122862635", nama: "GIA PUTRI NURHAYATI" },
+      { nisn: "3121392277", nama: "KEYLA ZASKIA" },
+      { nisn: "3125944881", nama: "MOH ABILL AL GIFARI" },
+      { nisn: "3128000232", nama: "MOH. RAHSYA AL QIANU" },
+      { nisn: "3111902960", nama: "MUH. FATHAN AL FAIRUZ" },
+      { nisn: "0131908143", nama: "MUTMAINAH FEBRIANA" },
+      { nisn: "0121660111", nama: "NAJWA ALIANI SULFA" },
+      { nisn: "0133621376", nama: "NANDA ALISYA PUTRI" },
+      { nisn: "0126798614", nama: "NAYLA ANGGRAINI" },
+      { nisn: "0133063969", nama: "RAHMAD KHAIRUL ANAM" },
+      { nisn: "0131962942", nama: "RAHMAN ALFATIH" },
+      { nisn: "3138478130", nama: "RASYA ANGGORO PUTRA PRASONGKO" },
+      { nisn: "3134375096", nama: "RIZA ARRAHMAN ADITYA" },
+      { nisn: "3125598562", nama: "SALZABIL ZAINZAYYAN" },
+      { nisn: "0131925183", nama: "SEKAR ARUM LARASATI" },
+      { nisn: "0121393300", nama: "SYIFA AMANDA" },
+      { nisn: "3135667411", nama: "ADAM ZULFIKAR" },
+      { nisn: "3138505924", nama: "ADZAM NOVAL" },
+      { nisn: "3133382712", nama: "ALGIO AZZAM MOHJEA JHORIS" },
+      { nisn: "0134518756", nama: "ALKHANSA HAURA TSANI SAMUDIA" },
+      { nisn: "0135308829", nama: "ANDI ASKANA RIFDA KALILA" },
+      { nisn: "0138670943", nama: "AQIFAH RADWA" },
+      { nisn: "0134830350", nama: "ARJUNA PRATAMA" },
+      { nisn: "0125877779", nama: "ARSYIL HAYFA AL DZIKRI", lulus: false },
+      { nisn: "3126052170", nama: "ARTRI RAHMADANI" },
+      { nisn: "3134223735", nama: "ASSYAUQI CHAIRUN NIZAM" },
+      { nisn: "0137320472", nama: "FAHIRA AULIA" },
+      { nisn: "3127767635", nama: "FASTIVA NISFA ANDITA AYUNG" },
+      { nisn: "3138396754", nama: "HAURA NAZHIFA" },
+      { nisn: "3135834190", nama: "KHADIFA ANGREANI" },
+      { nisn: "0125990900", nama: "KIRANA ADILA PUTRI" },
+      { nisn: "3129083308", nama: "MOCH AZZAM ARIFSYAH" },
+      { nisn: "0135764162", nama: "MOH PRADIPTA REZA GHOZALI" },
+      { nisn: "3122101866", nama: "MUH FAIRUZUL WAFIFARADIS" },
+      { nisn: "3138792294", nama: "MUHAMMAD AL AF GANI K ABD LATIF" },
+      { nisn: "0122833838", nama: "NAGITA FITRIA AFIANI" },
+      { nisn: "3127962836", nama: "SITI AINUL JANNAH" },
+      { nisn: "3132084900", nama: "SYAHWI MIRZA ALAMGHIR" },
+      { nisn: "3134860868", nama: "SYIFA NUR AZIZAH" },
+      { nisn: "0129925715", nama: "TASYA AFIQAH" },
+      { nisn: "0121384887", nama: "ZAHRA SEPTIANI" }
+    ];
+
+    function checkGraduation() {
+      const now = new Date();
+      const release = new Date('2025-06-03T09:30:00');
+      const result = document.getElementById("result");
+      if (now < release) {
+        result.textContent = "Pengumuman kelulusan belum tersedia. Silakan cek kembali pada 3 Juni 2025 pukul 09.30 WIB.";
+        return;
+      }
+
+      const input = document.getElementById("searchInput").value.trim().toLowerCase();
+      const student = students.find(s => s.nisn === input || s.nama.toLowerCase() === input);
+      if (student) {
+        if (student.lulus === false) {
+          result.textContent = `⚠️ ${student.nama} dinyatakan TIDAK LULUS. Tetap semangat dan terus belajar!`;
+        } else {
+          result.textContent = `🎉 Selamat ${student.nama}, Anda dinyatakan LULUS! 🎓✨`;
+        }
+      } else {
+        result.textContent = "Data tidak ditemukan. Periksa kembali NISN atau Nama yang dimasukkan.";
+      }
+    }
+  </script>
+</body>
+</html>
